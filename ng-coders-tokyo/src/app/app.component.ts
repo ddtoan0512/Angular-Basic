@@ -1,44 +1,78 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  OnDestroy,
+  AfterViewInit,
+  AfterContentInit,
+  AfterViewChecked,
+  AfterContentChecked,
+  SimpleChanges,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 @Component({
   selector: 'app-root', // document.querySelector('app-root); <app-root></app-root>
   template: `
-    <h1
-      [class.with-border]="withBorder"
-      [style.color]="textColor"
-      (mouseover)="onTextMouseOver()"
-      (mouseout)="onTextMouseOut()">
-        Welcome to {{title}}
-    </h1>
-
-    <button (click)="onButtonClick($event)">{{withBorder ? "Hide border" : "Show border"}}</button>
+    <h1 [class.with-border]="withBorder" [style.color]="textColor" >Welcome to {{title}}</h1>
+    <button (click)="onButtonClick()">{{withBorder ? "Hide border" : "Show border"}}</button>
+    <app-hello [text]="title" (buttonClicked)="onButtonClickFromHello($event)" ></app-hello>
   `,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent
+  implements OnInit, OnChanges, OnDestroy, AfterViewInit, AfterContentInit, AfterViewChecked, AfterContentChecked {
+
+  @Input() text: string;
+  @Output() buttonClicked: EventEmitter<any> = new EventEmitter<any>();
+
   title = 'Coder Tokyo';
   imageSrc = 'https://picsum.photos/200';
 
   textColor = 'tomato';
-  backgroundColor = 'black';
-
-  styleObj = {color: this.textColor, background: this.backgroundColor};
   withBorder = true;
 
-  onButtonClick(event: MouseEvent){
-    console.log('Button clicked !!');
+    onButtonClickFromHello(event: string){
+      console.log({event}, ' click from hello');
+      this.title = event;
+    }
+
+    ngOnInit(): void {
+      // console.log('Parent OnInit ran');
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+      // console.log('Parent OnChanges ran ', {changes});
+    }
+
+    ngOnDestroy(): void {
+      // console.log('Parent OnDestroy ran');
+    }
+
+    ngAfterViewInit(): void {
+      // console.log('Parent AfterViewInit ran');
+    }
+
+    ngAfterContentInit(): void {
+      // console.log('Parent AfterContentInit ran');
+    }
+
+    ngAfterViewChecked(): void {
+      // console.log('Parent AfterViewChecked ran');
+    }
+
+    ngAfterContentChecked(): void {
+      // console.log('Parent AfterContentChecked ran');
+    }
+
+  onButtonClick(){
     this.withBorder = !this.withBorder;
+    this.title = 'Changed';
   }
 
-  onTextMouseOver(){
-    this.textColor = 'yellow';
-    console.log('1');
-  }
 
-  onTextMouseOut(){
-    console.log('2');
-    this.textColor = 'tomato';
-  }
 }
 
 // DataBinding`
