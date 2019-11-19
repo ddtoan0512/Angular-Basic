@@ -19,6 +19,7 @@ import {
     <h1 [class.with-border]="withBorder" [style.color]="textColor" >Welcome to {{title}}</h1>
     <button (click)="onButtonClick()">{{withBorder ? "Hide border" : "Show border"}}</button>
     <app-hello [text]="title" (buttonClicked)="onButtonClickFromHello($event)" ></app-hello>
+    <app-hi></app-hi>
   `,
   styleUrls: ['./app.component.css']
 })
@@ -71,7 +72,6 @@ export class AppComponent
     this.withBorder = !this.withBorder;
     this.title = 'Changed';
   }
-
 
 }
 

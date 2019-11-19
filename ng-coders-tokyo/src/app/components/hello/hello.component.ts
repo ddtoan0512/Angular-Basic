@@ -12,6 +12,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-hello',
@@ -27,7 +28,11 @@ export class HelloComponent implements OnInit, OnChanges, OnDestroy, AfterViewIn
   @Input() text: string;
   @Output() buttonClicked: EventEmitter<string> = new EventEmitter<string>();
 
-  title = 'Coder Tokyo';
+  constructor(private _dataService: DataService){ //Inject
+
+  }
+
+  title = 'Coder Tokyo  Updated';
   imageSrc = 'https://picsum.photos/200';
 
   textColor = 'tomato';
@@ -40,6 +45,7 @@ export class HelloComponent implements OnInit, OnChanges, OnDestroy, AfterViewIn
 
     ngOnInit(): void {
       console.log('Child OnInit ran');
+      this._dataService.setTextFromHello(this.text);
     }
 
     ngOnChanges(changes: SimpleChanges): void {

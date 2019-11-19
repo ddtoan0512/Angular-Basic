@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HelloComponent } from './components/hello/hello.component';
 import { HiComponent } from './components/hi/hi.component';
 
+
 @NgModule({ // @Decorator // nhan metadata
   declarations: [
     AppComponent,
